@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bách Hóa Pastel - Mua Sắm Online</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons (using CDN for demo purposes) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="container header-content">
+            <!-- 1. Logo -->
+            <a href="#" class="logo" onclick="app.resetHome(); return false;">
+                <div class="logo-text">
+                    <span class="logo-line1">BÁCH HÓA</span>
+                    <span class="logo-line2">PASTEL</span>
+                </div>
+            </a>
+
+            <!-- 2. Search Bar -->
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Bạn tìm gì hôm nay?">
+                <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <!-- 3. Location & 4. Account/Cart Actions -->
+            <div class="header-actions">
+                <button class="location-btn">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Tùy chọn giao hàng</span>
+                </button>
+                
+                <div class="auth-box">
+                    <a href="#">Đăng nhập</a>
+                    <span class="divider">/</span>
+                    <a href="#">Đăng ký</a>
+                </div>
+
+                <div class="header-btns">
+                    <button class="icon-btn" onclick="app.openOrderHistory()" title="Đơn hàng của tôi">
+                         <i class="fa-solid fa-file-invoice"></i>
+                    </button>
+                    <button class="icon-btn cart-btn" onclick="app.toggleCart()">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cartBadge" class="badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Mini Menu -->
+        <div class="mini-menu-bar">
+            <div class="container mini-menu-content">
+                <div class="mini-item"><i class="fa-solid fa-bolt"></i> Flash sale</div>
+                <div class="mini-item"><i class="fa-solid fa-fire"></i> Giá sốc</div>
+                <div class="mini-item"><i class="fa-regular fa-calendar-check"></i> Mua 10.10</div>
+                <div class="mini-item"><i class="fa-solid fa-carrot"></i> Hàng tươi sống</div>
+                <div class="mini-item"><i class="fa-solid fa-bottle-water"></i> Đồ uống</div>
+                <div class="mini-item"><i class="fa-solid fa-baby"></i> Mẹ & Bé</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="container main-layout">
+        <!-- 4. SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header mobile-only" onclick="app.toggleMobileSidebar()">
+                <i class="fa-solid fa-bars"></i> Danh mục sản phẩm
+            </div>
+            <div id="categoryList" class="category-list">
+                <!-- Categories will be rendered here by JS -->
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- 5. BANNER -->
+            <section class="hero-banner">
+                <div class="banner-content">
+                    <h1>NGÀY 10 LƯƠNG VỀ - MUA CÀNG NHIỀU GIÁ CÀNG RẺ</h1>
+                    <p class="subtitle">ĐI CHỢ MỖI NGÀY</p>
+                    <p class="subtext">(Mua hàng tươi sống 150k, freeship 3km)</p>
+                    <div class="banner-actions">
+                        <button class="btn btn-primary">Xem khuyến mãi</button>
+                        <button class="btn btn-outline">Mua ngay</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICE BADGES -->
+            <section class="service-badges">
+                <div class="badge-item">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <span>Giao nhanh trong 2h</span>
+                </div>
+                <div class="badge-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Hàng tươi mỗi ngày</span>
+                </div>
+                <div class="badge-item">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Đổi trả dễ dàng</span>
+                </div>
+            </section>
+
+            <!-- 8. BRAND SECTION -->
+            <section class="brand-section">
+                <h2>Gian hàng & Ưu đãi từ hãng</h2>
+                <div id="brandGrid" class="brand-grid">
+                    <!-- Brands render here -->
+                </div>
+            </section>
+
+            <!-- 6. PRODUCT GRID -->
+            <section class="product-section">
+                <div class="section-header">
+                    <h2 id="productSectionTitle">Sản phẩm nổi bật</h2>
+                    <button class="btn-text" onclick="app.resetFilter()">Xem tất cả</button>
+                </div>
+                <div id="productGrid" class="product-grid">
+                    <!-- Products render here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Bách Hóa Pastel. Dự án demo học tập front-end.</p>
+            <p class="guide-text">Lưu ý: Để thay đổi ảnh sản phẩm, hãy thay thế đường dẫn trong file <code>app.js</code> hoặc tải ảnh vào thư mục và trỏ link cục bộ.</p>
+        </div>
+    </footer>
+
+    <!-- MODALS & OVERLAYS -->
+
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content quick-view-content">
+            <span class="close-btn" onclick="app.closeModal('quickViewModal')">&times;</span>
+            <div id="quickViewBody" class="quick-view-body">
+                <!-- Content via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar (Drawer) -->
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>Giỏ hàng <span id="cartCountHeader">(0)</span></h3>
+            <span class="close-cart" onclick="app.toggleCart()">&times;</span>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <!-- Cart items render here -->
+            <div class="empty-cart-msg">Giỏ hàng đang trống</div>
+        </div>
+        <div class="cart-footer">
+            <div class="coupon-area">
+                <input type="text" id="couponInput" placeholder="Mã giảm giá (VD: LUONGVE10)">
+                <button onclick="app.applyCoupon()">Áp dụng</button>
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Tạm tính:</span>
+                    <span id="cartSubtotal">0đ</span>
+                </div>
+                <div class="summary-row discount-row" id="discountRow" style="display:none;">
+                    <span>Giảm giá:</span>
+                    <span id="cartDiscount">-0đ</span>
+                </div>
+                <div class="summary-row">
+                    <span>Phí ship:</span>
+                    <span id="cartShipping">Tính khi thanh toán</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Tổng tiền:</span>
+                    <span id="cartTotal">0đ</span>
+                </div>
+                <div id="freeshipBadge" class="freeship-badge" style="display:none;">
+                    <i class="fa-solid fa-check"></i> Freeship 3km
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="app.openCheckout()">Thanh Toán</button>
+        </div>
+    </div>
+    <div id="cartOverlay" class="overlay" onclick="app.toggleCart()"></div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content checkout-content">
+            <span class="close-btn" onclick="app.closeModal('checkoutModal')">&times;</span>
+            <h2>Thanh Toán</h2>
+            <form id="checkoutForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label>Họ tên</label>
+                    <input type="text" id="cxName" required>
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="tel" id="cxPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ nhận hàng</label>
+                    <input type="text" id="cxAddress" required>
+                </div>
+                <div class="form-group">
+                    <label>Hình thức thanh toán</label>
+                    <select id="cxMethod">
+                        <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                        <option value="BANK">Chuyển khoản ngân hàng</option>
+                        <option value="EWALLET">Ví điện tử Momo/ZaloPay</option>
+                    </select>
+                </div>
+                <div class="checkout-actions">
+                    <button type="button" class="btn btn-outline" onclick="app.closeModal('checkoutModal')">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="app.processCheckout()">Xác nhận đặt hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order History Modal -->
+    <div id="ordersModal" class="modal">
+        <div class="modal-content orders-content">
+            <span class="close-btn" onclick="app.closeModal('ordersModal')">&times;</span>
+            <h2>Đơn hàng của tôi</h2>
+            <div id="ordersList" class="orders-list">
+                <!-- Orders render here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Đã thêm vào giỏ hàng!</div>
+
+    <!-- 11. Live Run Button -->
+    <div class="live-run-btn" onclick="app.renderApp()" title="Nhấn để render lại trang (Live Run)">
+        <i class="fa-solid fa-bolt"></i> Live Run
+    </div>
+
+    <script src="app.js" defer></script>
+</body>
+</html>
