@@ -164,11 +164,11 @@ function seedData() {
 
             // Brands
             const brands = [
-                ['Unilever', 'https://via.placeholder.com/100?text=Unilever', 26],
-                ['PepsiCo', 'https://via.placeholder.com/100?text=PepsiCo', 30],
-                ['CocaCola', 'https://via.placeholder.com/100?text=Coke', 15],
-                ['Vinamilk', 'https://via.placeholder.com/100?text=Vinamilk', 12],
-                ['Acecook', 'https://via.placeholder.com/100?text=Acecook', 10]
+                ['Unilever', 'https://placehold.co/100x100?text=Unilever', 26],
+                ['PepsiCo', 'https://placehold.co/100x100?text=PepsiCo', 30],
+                ['CocaCola', 'https://placehold.co/100x100?text=Coke', 15],
+                ['Vinamilk', 'https://placehold.co/100x100?text=Vinamilk', 12],
+                ['Acecook', 'https://placehold.co/100x100?text=Acecook', 10]
             ];
             brands.forEach(b => db.run("INSERT INTO brands (name, logo_url, default_discount) VALUES (?,?,?)", b));
 
@@ -184,28 +184,34 @@ function seedData() {
                     VALUES ('LUONGVE10', 'Giảm 10% cho đơn từ 150k', 'percent', 10, 150000, 50000)`);
 
             // Seed Products (Delayed to ensure cats exist)
-            setTimeout(() => {
+            // Seed Products with Image Fetching
+            const { fetchBhxImageUrls } = require('./bhxImageFetcher');
+
+            fetchBhxImageUrls(50).then(imageUrls => {
                 const products = [
-                    { name: "Nước giặt OMO Matic Túi 3.6kg", cat: "Nước giặt", price: 168000, old: 210000, unit: "Túi", badge: "-20%", fresh: 0, img: "https://via.placeholder.com/300?text=OMO" },
-                    { name: "Ba chỉ heo VietGAP (tươi) 500g", cat: "Thịt heo", price: 85000, old: 95000, unit: "Khay", badge: "Tươi", fresh: 1, img: "https://via.placeholder.com/300?text=Thit+Heo" },
-                    { name: "Táo Envy Mỹ 1kg", cat: "Trái cây", price: 199000, old: 240000, unit: "kg", badge: "-17%", fresh: 1, img: "https://via.placeholder.com/300?text=Tao+Envy" },
-                    { name: "Thùng 24 lon Bia Tiger Crystal", cat: "Bia", price: 395000, old: 420000, unit: "Thùng", badge: "HOT", fresh: 0, img: "https://via.placeholder.com/300?text=Tiger" },
-                    { name: "Rau muống 500g", cat: "Rau lá", price: 15000, old: 0, unit: "Bó", badge: "Mới", fresh: 1, img: "https://via.placeholder.com/300?text=Rau" },
-                    { name: "Kẹo Gậy Giáng Sinh (Hộp)", cat: "Kẹo Giáng Sinh", price: 45000, old: 55000, unit: "Hộp", badge: "Noel", fresh: 0, img: "https://via.placeholder.com/300?text=Keo+Noel" },
-                    { name: "Hộp Quà Bánh Quy Danisa", cat: "Hộp quà", price: 120000, old: 150000, unit: "Hộp", badge: "-20%", fresh: 0, img: "https://via.placeholder.com/300?text=Danisa" },
-                    { name: "Sữa tươi Vinamilk 1L", cat: "Sữa tươi", price: 32000, old: 35000, unit: "Hộp", badge: "", fresh: 0, img: "https://via.placeholder.com/300?text=Vinamilk" }
+                    { name: "Nước giặt OMO Matic Túi 3.6kg", cat: "Nước giặt", price: 168000, old: 210000, unit: "Túi", badge: "-20%", fresh: 0 },
+                    { name: "Ba chỉ heo VietGAP (tươi) 500g", cat: "Thịt heo", price: 85000, old: 95000, unit: "Khay", badge: "Tươi", fresh: 1 },
+                    { name: "Táo Envy Mỹ 1kg", cat: "Trái cây", price: 199000, old: 240000, unit: "kg", badge: "-17%", fresh: 1 },
+                    { name: "Thùng 24 lon Bia Tiger Crystal", cat: "Bia", price: 395000, old: 420000, unit: "Thùng", badge: "HOT", fresh: 0 },
+                    { name: "Rau muống 500g", cat: "Rau lá", price: 15000, old: 0, unit: "Bó", badge: "Mới", fresh: 1 },
+                    { name: "Kẹo Gậy Giáng Sinh (Hộp)", cat: "Kẹo Giáng Sinh", price: 45000, old: 55000, unit: "Hộp", badge: "Noel", fresh: 0 },
+                    { name: "Hộp Quà Bánh Quy Danisa", cat: "Hộp quà", price: 120000, old: 150000, unit: "Hộp", badge: "-20%", fresh: 0 },
+                    { name: "Sữa tươi Vinamilk 1L", cat: "Sữa tươi", price: 32000, old: 35000, unit: "Hộp", badge: "", fresh: 0 }
                 ];
 
-                products.forEach(p => {
+                products.forEach((p, index) => {
+                    // Assign fetched image or fallback (remote)
+                    const img = imageUrls[index] || "https://placehold.co/300x300?text=" + encodeURIComponent(p.name);
+
                     db.get("SELECT id FROM categories WHERE name = ?", [p.cat], (err, r) => {
                         if (r) {
                             db.run(`INSERT INTO products (name, category_id, price, old_price, unit, badge, is_fresh, image_url, description) 
                                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                                [p.name, r.id, p.price, p.old, p.unit, p.badge, p.fresh, p.img, `Mô tả cho ${p.name}`]);
+                                [p.name, r.id, p.price, p.old, p.unit, p.badge, p.fresh, img, `Mô tả cho ${p.name}`]);
                         }
                     });
                 });
-            }, 1500);
+            });
         }
     });
 }
