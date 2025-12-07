@@ -8,40 +8,83 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <div class="container" style="padding-top:20px">
-        <header class="admin-header">
-            <h2><i class="fa-solid fa-user-shield"></i> Trang Quản Trị</h2>
-            <button onclick="logout()" style="color:white; font-weight:bold">Đăng xuất</button>
+<body style="background:#f0f2f5;">
+    <div class="container" style="padding-top:20px; max-width:1400px">
+        <header class="admin-header"
+            style="background:white; padding:20px; border-radius:12px; box-shadow:var(--shadow); display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
+            <h2 style="margin:0; color:var(--primary-dark)"><i class="fa-solid fa-user-shield"></i> Pastel Admin</h2>
+            <div style="display:flex; gap:15px; align-items:center">
+                <a href="index.html" style="font-weight:600; color:#666">Về trang chủ</a>
+                <button onclick="logout()" class="btn btn-primary btn-sm">Đăng xuất</button>
+            </div>
         </header>
 
-        <div class="auth-box" id="loginArea">
-            <p>Vui lòng đăng nhập quyền Admin để tiếp tục.</p>
-            <button onclick="window.location.href='index.html'" class="btn btn-primary">Về Trang Chủ</button>
+        <div class="auth-box" id="loginArea"
+            style="text-align:center; padding:50px; background:white; border-radius:12px">
+            <p>Đang kiểm tra quyền truy cập...</p>
         </div>
 
         <div id="adminContent" style="display:none">
             <!-- TABS -->
-            <div style="display:flex; gap:10px; margin-bottom:20px">
-                <button class="btn btn-outline" onclick="loadProducts()">Quản lý Sản Phẩm</button>
-                <button class="btn btn-outline" onclick="loadOrders()">Quản lý Đơn Hàng</button>
+            <div class="admin-tabs">
+                <div class="admin-tab active" onclick="switchTab('orders', this)">Quản lý Đơn Hàng</div>
+                <div class="admin-tab" onclick="switchTab('products', this)">Quản lý Sản Phẩm</div>
             </div>
 
-            <div id="contentArea"></div>
+            <!-- ORDERS TAB -->
+            <div id="tab-orders">
+                <button class="btn btn-outline btn-sm" onclick="loadOrders()" style="margin-bottom:10px"><i
+                        class="fa-solid fa-rotate"></i> Làm mới</button>
+                <div id="ordersArea"></div>
+            </div>
+
+            <!-- PRODUCTS TAB -->
+            <div id="tab-products" style="display:none">
+                <div style="margin-bottom:15px; display:flex; justify-content:space-between">
+                    <button class="btn btn-primary" onclick="openProductModal()"><i class="fa-solid fa-plus"></i> Thêm
+                        sản phẩm</button>
+                    <input id="prodSearch" placeholder="Tìm tên SP..."
+                        style="padding:8px; border-radius:6px; border:1px solid #ddd"
+                        oninput="loadProducts(this.value)">
+                </div>
+                <div id="productsArea"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT MODAL -->
+    <div id="prodModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('prodModal')">&times;</span>
+            <h2 id="modalTitle">Thêm Sản Phẩm</h2>
+            <form onsubmit="handleProductSubmit(event)">
+                <input type="hidden" name="id" id="pId">
+                <div class="form-group"><label>Tên sản phẩm</label><input name="name" id="pName" required></div>
+                <div class="form-group"><label>Giá</label><input name="price" type="number" id="pPrice" required></div>
+                <div class="form-group"><label>Danh mục ID</label><input name="category_id" id="pCatId" required
+                        placeholder="Nhập ID danh mục"></div>
+                <div class="form-group"><label>Hình ảnh URL</label><input name="image_url" id="pImg" required></div>
+                <button class="btn btn-primary btn-block">Lưu</button>
+            </form>
         </div>
     </div>
 
     <script>
         const API = '/api';
         const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
 
+        // Init
         if (!token || user.role !== 'admin') {
-            document.getElementById('loginArea').innerHTML += '<div style="color:red; margin-top:10px">Bạn không phải Admin hoặc chưa đăng nhập.</div>';
+            document.getElementById('loginArea').innerHTML = `
+                <h3 style="color:red">Truy cập bị từ chối</h3>
+                <p>Vui lòng đăng nhập tài khoản Admin.</p>
+                <button onclick="window.location.href='index.html'" class="btn btn-primary">Về Trang Chủ</button>
+            `;
         } else {
             document.getElementById('loginArea').style.display = 'none';
             document.getElementById('adminContent').style.display = 'block';
-            loadOrders(); // Load default
+            loadOrders();
         }
 
         function logout() {
@@ -49,73 +92,177 @@
             window.location.href = 'index.html';
         }
 
+        function switchTab(tab, el) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('tab-orders').style.display = tab === 'orders' ? 'block' : 'none';
+            document.getElementById('tab-products').style.display = tab === 'products' ? 'block' : 'none';
+            if (tab === 'orders') loadOrders();
+            else loadProducts();
+        }
+
+        // --- ORDERS ---
         async function loadOrders() {
-            const res = await fetch(API + '/orders', {
-                headers: { 'Authorization': 'Bearer ' + token }
-            });
-            const orders = await res.json();
+            document.getElementById('ordersArea').innerHTML = 'Loading...';
+            try {
+                const res = await fetch(API + '/orders', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const orders = await res.json();
 
-            let html = `<h3>Danh sách đơn hàng</h3>
-                        <table class="admin-table">
-                        <thead><tr><th>ID</th><th>User</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
-                        <tbody>`;
+                if (orders.error) return alert(orders.error);
 
-            orders.forEach(o => {
-                html += `
-                    <tr>
-                        <td>${o.id}</td>
-                        <td>${o.shipping_name}</td>
-                        <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(o.total_amount)}</td>
-                        <td>
-                            <select onchange="updateStatus('${o.id}', this.value)" class="status-select">
-                                <option value="PLACED" ${o.status === 'PLACED' ? 'selected' : ''}>Đã đặt</option>
-                                <option value="PREPARING" ${o.status === 'PREPARING' ? 'selected' : ''}>Đang chuẩn bị</option>
-                                <option value="DELIVERING" ${o.status === 'DELIVERING' ? 'selected' : ''}>Đang giao</option>
-                                <option value="COMPLETED" ${o.status === 'COMPLETED' ? 'selected' : ''}>Hoàn tất</option>
-                                <option value="CANCELLED" ${o.status === 'CANCELLED' ? 'selected' : ''}>Hủy</option>
-                            </select>
-                        </td>
-                        <td><button class="btn-sm btn-primary">Chi tiết</button></td>
-                    </tr>
-                `;
-            });
-            html += '</tbody></table>';
-            document.getElementById('contentArea').innerHTML = html;
+                let html = `
+                    <table class="admin-table">
+                    <thead><tr><th>ID</th><th>Khách hàng</th><th>Địa chỉ</th><th>Tổng tiền</th><th>Trạng thái</th><th>Ngày</th></tr></thead>
+                    <tbody>`;
+
+                orders.forEach(o => {
+                    const statusOptions = ['PLACED', 'PREPARING', 'DELIVERING', 'COMPLETED', 'CANCELLED']
+                        .map(s => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${s}</option>`).join('');
+
+                    html += `
+                        <tr>
+                            <td style="font-weight:bold">#${o.id}</td>
+                            <td>
+                                <div>${o.shipping_name}</div>
+                                <div style="font-size:0.8rem; color:#888">${o.shipping_phone}</div>
+                            </td>
+                            <td style="font-size:0.9rem">${o.shipping_address}</td>
+                            <td style="color:#d0021b; font-weight:bold">${formatCurrency(o.total_amount)}</td>
+                            <td>
+                                <select onchange="updateStatus('${o.id}', this.value)" style="padding:5px; border-radius:4px; border:1px solid #ddd">
+                                    ${statusOptions}
+                                </select>
+                            </td>
+                            <td style="font-size:0.8rem">${new Date(o.created_at).toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+                html += '</tbody></table>';
+                document.getElementById('ordersArea').innerHTML = html;
+            } catch (e) { console.error(e); }
         }
 
         async function updateStatus(id, newStatus) {
-            await fetch(API + `/orders/${id}/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify({ status: newStatus })
-            });
-            alert("Cập nhật thành công!");
+            try {
+                const res = await fetch(API + `/orders/${id}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const d = await res.json();
+                if (d.message) {
+                    // Success, no alert to avoid spam
+                } else {
+                    alert('Lỗi cập nhật');
+                }
+            } catch (e) { alert('Lỗi kết nối'); }
         }
 
-        async function loadProducts() {
-            const res = await fetch(API + '/products?limit=100');
-            const data = await res.json();
-            const products = data.data;
+        // --- PRODUCTS ---
+        async function loadProducts(search = '') {
+            let url = API + '/products?limit=50';
+            if (search) url += `&search=${encodeURIComponent(search)}`;
 
-            let html = `<h3>Danh sách sản phẩm</h3>
-                        <table class="admin-table">
-                        <thead><tr><th>ID</th><th>Name</th><th>Price</th><th>Active</th></tr></thead>
-                        <tbody>`;
+            const res = await fetch(url);
+            const json = await res.json();
+            const products = json.data || [];
+
+            let html = `
+                <table class="admin-table">
+                <thead><tr><th>ID</th><th>Hình</th><th>Tên SP</th><th>Giá</th><th>Danh mục</th><th>Hành động</th></tr></thead>
+                <tbody>`;
+
             products.forEach(p => {
                 html += `
                     <tr>
                         <td>${p.id}</td>
-                        <td>${p.name}</td>
-                        <td>${p.price}</td>
-                        <td>${p.is_active ? 'Yes' : 'No'}</td>
+                        <td><img src="${p.image_url}" style="width:40px;height:40px;object-fit:cover;border-radius:4px"></td>
+                        <td style="max-width:200px">${p.name}</td>
+                        <td>${formatCurrency(p.price)}</td>
+                        <td>${p.category_id}</td>
+                        <td>
+                            <button class="btn btn-outline btn-sm" onclick='editProduct(${JSON.stringify(p)})'><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn btn-outline btn-sm" onclick="deleteProduct(${p.id})" style="color:red; border-color:red"><i class="fa-solid fa-trash"></i></button>
+                        </td>
                     </tr>
                 `;
             });
             html += '</tbody></table>';
-            document.getElementById('contentArea').innerHTML = html;
+            document.getElementById('productsArea').innerHTML = html;
+        }
+
+        function formatCurrency(val) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val);
+        }
+
+        // --- MODAL & FORM ---
+        function openProductModal() {
+            document.getElementById('modalTitle').innerText = "Thêm Sản Phẩm";
+            document.getElementById('pId').value = '';
+            document.getElementById('pName').value = '';
+            document.getElementById('pPrice').value = '';
+            document.getElementById('pCatId').value = '';
+            document.getElementById('pImg').value = '';
+            document.getElementById('prodModal').style.display = 'flex';
+        }
+
+        function editProduct(p) {
+            document.getElementById('modalTitle').innerText = "Sửa Sản Phẩm (ID: " + p.id + ")";
+            document.getElementById('pId').value = p.id;
+            document.getElementById('pName').value = p.name;
+            document.getElementById('pPrice').value = p.price;
+            document.getElementById('pCatId').value = p.category_id;
+            document.getElementById('pImg').value = p.image_url;
+            document.getElementById('prodModal').style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        async function handleProductSubmit(e) {
+            e.preventDefault();
+            const fd = new FormData(e.target);
+            const data = Object.fromEntries(fd.entries());
+            const id = data.id;
+
+            const url = id ? `${API}/products/${id}` : `${API}/products`;
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(data)
+                });
+                const json = await res.json();
+                if (json.error) {
+                    alert("Lỗi: " + json.error);
+                } else {
+                    alert("Lưu thành công");
+                    closeModal('prodModal');
+                    loadProducts();
+                }
+            } catch (e) { alert("Lỗi kết nối"); }
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm("Bạn có chắc muốn xóa sản phẩm này?")) return;
+            try {
+                const res = await fetch(`${API}/products/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                loadProducts();
+            } catch (e) { alert("Lỗi xóa"); }
         }
     </script>
 </body>

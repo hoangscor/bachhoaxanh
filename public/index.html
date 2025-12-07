@@ -25,9 +25,11 @@
                 </div>
             </a>
 
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Bạn tìm gì hôm nay?">
+            <div class="search-bar" style="position:relative">
+                <input type="text" id="searchInput" placeholder="Bạn tìm gì hôm nay? (thịt, bia, gạo...)"
+                    oninput="app.handleSearchInput(this.value)">
                 <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <div id="searchResults" class="search-dropdown" style="display:none"></div>
             </div>
 
             <div class="header-actions">
@@ -97,13 +99,57 @@
             </section>
 
             <!-- Products -->
-            <section>
+            <section id="homeView">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
                     <h2 id="productSectionTitle">Sản phẩm nổi bật</h2>
                     <button class="btn-text" style="color:var(--primary-dark); font-weight:600"
                         onclick="app.resetHome()">Xem tất cả</button>
                 </div>
                 <div id="productGrid" class="product-grid"></div>
+            </section>
+
+            <!-- Product Detail View (Hidden by default) -->
+            <section id="productDetailView" style="display:none">
+                <div class="breadcrumb" style="margin-bottom:15px; color:#666; font-size:0.9rem">
+                    <span onclick="app.resetHome()" style="cursor:pointer">Trang chủ</span> > <span
+                        id="pdCategory">...</span> > <span id="pdName">...</span>
+                </div>
+                <div
+                    style="display:flex; gap:30px; background:white; padding:20px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.05)">
+                    <div style="flex:1; text-align:center">
+                        <img id="pdImage" src="" style="max-width:100%; height:auto; border-radius:8px">
+                    </div>
+                    <div style="flex:1.5">
+                        <h1 id="pdTitle" style="font-size:1.5rem; margin-bottom:10px; color:var(--text)">...</h1>
+                        <div style="font-size:0.9rem; color:#888; margin-bottom:15px">Mã SP: <span id="pdSku">...</span>
+                            | Tình trạng: <span style="color:green">Còn hàng</span></div>
+
+                        <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:20px">
+                            <span id="pdPrice" style="font-size:1.8rem; color:#d0021b; font-weight:bold">0đ</span>
+                            <span id="pdOldPrice" style="text-decoration:line-through; color:#999">0đ</span>
+                            <span id="pdBadge"
+                                style="background:var(--danger); color:white; padding:2px 6px; border-radius:4px; font-size:0.8rem; display:none">Giảm
+                                sốc</span>
+                        </div>
+
+                        <div
+                            style="margin-bottom:20px; padding:15px; background:#f9f9f9; border-radius:8px; font-size:0.9rem">
+                            <p>🎁 <strong>Ưu đãi:</strong> Mua online giảm thêm 5% (tối đa 50k).</p>
+                            <p>🚛 <strong>Giao hàng:</strong> Freeship 3km cho đơn từ 150k.</p>
+                        </div>
+
+                        <div style="display:flex; gap:10px">
+                            <button class="btn btn-outline" onclick="app.addToCartFromDetail(false)">Thêm vào
+                                giỏ</button>
+                            <button class="btn btn-primary" onclick="app.addToCartFromDetail(true)">Mua ngay</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:30px">
+                    <h3>Sản phẩm liên quan</h3>
+                    <div id="relatedProductGrid" class="product-grid"></div>
+                </div>
             </section>
         </main>
     </div>
@@ -181,6 +227,19 @@
         </div>
     </div>
 
+    <!-- Store Modal -->
+    <div id="storeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="app.closeModal('storeModal')">&times;</span>
+            <h2>Hệ thống cửa hàng Bách Hóa Pastel</h2>
+            <div style="margin-bottom:15px">
+                <input placeholder="Tìm cửa hàng gần bạn..."
+                    style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px">
+            </div>
+            <div id="storeList" style="max-height:300px; overflow-y:auto"></div>
+        </div>
+    </div>
+
     <!-- Cart Drawer -->
     <div id="cartDrawer" class="cart-drawer">
         <div style="padding:20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between">
@@ -202,7 +261,8 @@
                     id="cartShipping">...</span></div>
             <div
                 style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.2rem; margin-top:10px; border-top:1px dashed #ccc; padding-top:10px">
-                <span>Tổng:</span><span id="cartTotal">0đ</span></div>
+                <span>Tổng:</span><span id="cartTotal">0đ</span>
+            </div>
             <div id="freeshipBadge"
                 style="background:#e0fcf4; color:#4caf93; padding:5px; text-align:center; border-radius:4px; margin:10px 0; font-size:0.9rem; display:none">
                 ✅ Freeship 3km</div>

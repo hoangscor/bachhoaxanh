@@ -13,6 +13,7 @@ router.get('/promotions/active', (req, res) => {
 router.post('/coupons/apply', (req, res) => {
     const { code, cartTotal } = req.body;
     db.get("SELECT * FROM coupons WHERE code = ? AND is_active=1", [code], (err, coupon) => {
+        if (err) return res.status(500).json({ error: err.message });
         if (!coupon) return res.status(400).json({ error: "Mã không hợp lệ hoặc đã hết hạn" });
         if (cartTotal < coupon.min_order_total) return res.status(400).json({ error: `Đơn tối thiểu ${coupon.min_order_total}` });
 
@@ -27,20 +28,18 @@ router.post('/coupons/apply', (req, res) => {
             discount = coupon.max_discount;
         }
 
-        res.json({ discountAmount: Math.round(discount), discountCode: code });
+        res.json({ discount, coupon });
     });
 });
 
-// Create Order
 router.post('/orders', verifyToken, (req, res) => {
-    const { shipping, payment_method, items, couponCode } = req.body;
+    const { items, payment_method, shipping, couponCode } = req.body;
 
-    // Server-side calculation to verify totals
-    if (!items || items.length === 0) return res.status(400).json({ error: "No items" });
+    if (!items || items.length === 0) {
+        return res.status(400).json({ error: "Giỏ hàng trống" });
+    }
 
-    // 1. Calculate Subtotal
-    // In real app, we fetch prices from DB. Here we trust frontend slightly for demo or fetch
-    // Let's just trust frontend for speed in demo, or minimal fetch
+    // 1. Calculate Subtotal and check for fresh items
     let subtotal = 0;
     let hasFresh = false;
     items.forEach(i => {
@@ -48,8 +47,10 @@ router.post('/orders', verifyToken, (req, res) => {
         if (i.isFresh) hasFresh = true;
     });
 
-    // 2. Coupon
+    // 2. Coupon & Final Eval
     let discountAmount = 0;
+
+    // Helper to finish
     const processOrder = () => {
         // 3. Shipping Fee Logic
         // "Nếu subtotal >= 150.000đ và có ít nhất 1 sản phẩm is_fresh => 0đ"
@@ -64,13 +65,13 @@ router.post('/orders', verifyToken, (req, res) => {
 
         db.serialize(() => {
             db.run(`INSERT INTO orders (id, user_id, total_amount, discount_amount, shipping_fee, payment_method, shipping_name, shipping_phone, shipping_address)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                 [orderId, userId, totalAmount, discountAmount, shippingFee, payment_method, shipping.name, shipping.phone, shipping.address],
                 function (err) {
                     if (err) return res.status(500).json({ error: err.message });
 
                     const stmt = db.prepare(`INSERT INTO order_items (order_id, product_id, product_name_snapshot, price_snapshot, quantity) 
-                                                 VALUES (?, ?, ?, ?, ?)`);
+                                         VALUES (?, ?, ?, ?, ?)`);
                     items.forEach(it => {
                         stmt.run([orderId, it.productId, it.name, it.price, it.quantity]);
                     });
@@ -84,6 +85,7 @@ router.post('/orders', verifyToken, (req, res) => {
 
     if (couponCode) {
         db.get("SELECT * FROM coupons WHERE code = ? AND is_active=1", [couponCode], (err, coupon) => {
+            if (err) return res.status(500).json({ error: err.message });
             if (coupon && subtotal >= coupon.min_order_total) {
                 if (coupon.discount_type === 'percent') discountAmount = (subtotal * coupon.discount_value) / 100;
                 else discountAmount = coupon.discount_value;
@@ -96,28 +98,37 @@ router.post('/orders', verifyToken, (req, res) => {
     }
 });
 
+// Get My Orders
 router.get('/orders/my', verifyToken, (req, res) => {
     db.all(`SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC`, [req.user.id], (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
-
-        // Populate items for detail view if needed, or separate call
-        // For list view, we just need summary.
-        // Let's stick to summary
         res.json(rows);
     });
 });
 
-// Admin
+// Admin - Get All Orders
 router.get('/orders', verifyToken, isAdmin, (req, res) => {
     db.all(`SELECT o.*, u.email as user_email FROM orders o LEFT JOIN users u ON o.user_id = u.id ORDER BY o.created_at DESC`, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
         res.json(rows);
     });
 });
 
+// Admin - Update Order Status
 router.patch('/orders/:id/status', verifyToken, isAdmin, (req, res) => {
-    db.run("UPDATE orders SET status = ? WHERE id = ?", [req.body.status, req.params.id], function (err) {
-        if (err) res.status(500).json({ error: err.message });
-        res.json({ success: true });
+    const { status } = req.body;
+    const { id } = req.params;
+
+    // Valid statuses
+    const VALID_STATUSES = ['PLACED', 'PREPARING', 'DELIVERING', 'COMPLETED', 'CANCELLED'];
+    if (!VALID_STATUSES.includes(status)) {
+        return res.status(400).json({ message: 'Invalid status' });
+    }
+
+    db.run("UPDATE orders SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?", [status, id], function (err) {
+        if (err) return res.status(500).json({ error: err.message });
+        if (this.changes === 0) return res.status(404).json({ message: 'Order not found' });
+        res.json({ message: 'Order updated', status });
     });
 });
 

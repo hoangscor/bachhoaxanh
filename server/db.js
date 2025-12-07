@@ -13,7 +13,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 function initDb() {
     db.serialize(() => {
-        // Users
+        // 1. Users
         db.run(`CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT UNIQUE,
@@ -24,7 +24,7 @@ function initDb() {
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`);
 
-        // Categories
+        // 2. Categories
         db.run(`CREATE TABLE IF NOT EXISTS categories (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
@@ -33,7 +33,7 @@ function initDb() {
             FOREIGN KEY(parent_id) REFERENCES categories(id)
         )`);
 
-        // Brands
+        // 3. Brands
         db.run(`CREATE TABLE IF NOT EXISTS brands (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
@@ -42,7 +42,7 @@ function initDb() {
             default_discount INTEGER
         )`);
 
-        // Products
+        // 4. Products
         db.run(`CREATE TABLE IF NOT EXISTS products (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
@@ -61,7 +61,7 @@ function initDb() {
             FOREIGN KEY(brand_id) REFERENCES brands(id)
         )`);
 
-        // Promotions
+        // 5. Promotions
         db.run(`CREATE TABLE IF NOT EXISTS promotions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT,
@@ -74,7 +74,7 @@ function initDb() {
             min_order_total INTEGER
         )`);
 
-        // Coupons
+        // 6. Coupons
         db.run(`CREATE TABLE IF NOT EXISTS coupons (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             code TEXT UNIQUE,
@@ -88,7 +88,7 @@ function initDb() {
             is_active INTEGER DEFAULT 1
         )`);
 
-        // Orders
+        // 7. Orders
         db.run(`CREATE TABLE IF NOT EXISTS orders (
             id TEXT PRIMARY KEY,
             user_id INTEGER,
@@ -105,7 +105,7 @@ function initDb() {
             FOREIGN KEY(user_id) REFERENCES users(id)
         )`);
 
-        // Order Items
+        // 8. Order Items
         db.run(`CREATE TABLE IF NOT EXISTS order_items (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             order_id TEXT,
@@ -117,7 +117,7 @@ function initDb() {
             FOREIGN KEY(product_id) REFERENCES products(id)
         )`);
 
-        // Stores
+        // 9. Stores
         db.run(`CREATE TABLE IF NOT EXISTS stores (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT, 
@@ -135,21 +135,28 @@ function seedData() {
         if (row.count === 0) {
             console.log("Seeding data...");
 
-            // Users
+            // --- Users ---
             const adminPass = bcrypt.hashSync('admin123', 10);
             const userPass = bcrypt.hashSync('123456', 10);
             db.run(`INSERT INTO users (email, password_hash, name, phone, role) VALUES (?, ?, ?, ?, ?)`, ['admin@bachhoa.com', adminPass, 'Admin User', '0909000111', 'admin']);
             db.run(`INSERT INTO users (email, password_hash, name, phone, role) VALUES (?, ?, ?, ?, ?)`, ['khach@bachhoa.com', userPass, 'Khách Hàng Mẫu', '0901234567', 'customer']);
 
-            // Categories
+            // --- Categories (Full BHX Structure) ---
             const cats = [
-                { name: 'Thịt, cá, trứng, hải sản', subs: ['Thịt heo', 'Thịt bò', 'Cá, hải sản', 'Trứng'] },
-                { name: 'Rau, củ, nấm, trái cây', subs: ['Trái cây', 'Rau lá', 'Củ, quả'] },
-                { name: 'Bia, nước giải khát', subs: ['Bia', 'Nước ngọt'] },
-                { name: 'Sữa các loại', subs: ['Sữa tươi', 'Sữa chua', 'Sữa hạt'] },
-                { name: 'Vệ sinh nhà cửa', subs: ['Nước giặt', 'Nước rửa chén'] },
-                { name: 'Bánh kẹo', subs: ['Bánh quy', 'Kẹo dẻo', 'Snack'] },
-                { name: 'Hàng Noel', subs: ['Kẹo Giáng Sinh', 'Hộp quà', 'Trang trí'] } // Special category
+                { name: 'Thịt, cá, trứng, hải sản', subs: ['Thịt heo', 'Thịt bò', 'Cá, hải sản', 'Trứng', 'Thịt gia cầm'] },
+                { name: 'Rau, củ, nấm, trái cây', subs: ['Trái cây', 'Rau lá', 'Củ, quả', 'Nấm các loại', 'Rau gia vị'] },
+                { name: 'Dầu ăn, nước chấm, gia vị', subs: ['Dầu ăn', 'Nước mắm', 'Nước tương', 'Hạt nêm', 'Đường', 'Muối'] },
+                { name: 'Mì, miến, cháo, phở', subs: ['Mì ăn liền', 'Phở, bún ăn liền', 'Miến, hủ tiếu', 'Cháo gói'] },
+                { name: 'Gạo, bột, đồ khô', subs: ['Gạo các loại', 'Bột mì, bột gạo', 'Đồ khô'] },
+                { name: 'Bia, nước giải khát', subs: ['Bia', 'Nước ngọt', 'Nước suối', 'Nước trái cây', 'Trà, Cà phê'] },
+                { name: 'Sữa các loại', subs: ['Sữa tươi', 'Sữa hạt', 'Sữa bột', 'Sữa đặc'] },
+                { name: 'Kem, thực phẩm đông mát', subs: ['Kem cây', 'Kem hộp', 'Sữa chua', 'Váng sữa'] },
+                { name: 'Bánh kẹo các loại', subs: ['Bánh quy', 'Bánh xốp', 'Kẹo dẻo', 'Kẹo cứng', 'Socola', 'Snack'] },
+                { name: 'Vệ sinh nhà cửa', subs: ['Nước giặt', 'Nước xả', 'Nước rửa chén', 'Lau sàn, kính'] },
+                { name: 'Chăm sóc cá nhân', subs: ['Dầu gội', 'Sữa tắm', 'Kem đánh răng', 'Sữa rửa mặt'] },
+                { name: 'Sản phẩm mẹ và bé', subs: ['Tã bỉm', 'Sữa công thức', 'Khăn ướt'] },
+                { name: 'Đồ dùng gia đình', subs: ['Màng bọc thực phẩm', 'Túi đựng rác', 'Đồ dùng bếp'] },
+                { name: 'Hàng Noel', subs: ['Kẹo Giáng Sinh', 'Hộp quà', 'Trang trí'] } // Special
             ];
 
             const stmtCat = db.prepare("INSERT INTO categories (name, parent_id) VALUES (?, ?)");
@@ -162,55 +169,119 @@ function seedData() {
                 });
             });
 
-            // Brands
+            // --- Brands (Real Logos) ---
             const brands = [
-                ['Unilever', 'https://placehold.co/100x100?text=Unilever', 26],
-                ['PepsiCo', 'https://placehold.co/100x100?text=PepsiCo', 30],
-                ['CocaCola', 'https://placehold.co/100x100?text=Coke', 15],
-                ['Vinamilk', 'https://placehold.co/100x100?text=Vinamilk', 12],
-                ['Acecook', 'https://placehold.co/100x100?text=Acecook', 10]
+                ['Unilever', 'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Unilever_logo_2024.svg/150px-Unilever_logo_2024.svg.png', 26],
+                ['PepsiCo', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/PepsiCo_logo.svg/150px-PepsiCo_logo.svg.png', 30],
+                ['CocaCola', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/150px-Coca-Cola_logo.svg.png', 15],
+                ['Vinamilk', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Vinamilk_logo.svg/150px-Vinamilk_logo.svg.png', 12],
+                ['Acecook', 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Acecook_logo.svg/150px-Acecook_logo.svg.png', 10],
+                ['Masand', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Masan_Group_Logo.svg/150px-Masan_Group_Logo.svg.png', 10]
             ];
+            // Use Placehold.co fallback if real URL fails in frontend (handled there), but putting real ones here for "90% clone" feel.
             brands.forEach(b => db.run("INSERT INTO brands (name, logo_url, default_discount) VALUES (?,?,?)", b));
 
-            // Stores
-            db.run("INSERT INTO stores (name, address) VALUES (?, ?)", ["BH Pastel Quận 1", "123 Pasteur, Q1, TP.HCM"]);
-            db.run("INSERT INTO stores (name, address) VALUES (?, ?)", ["BH Pastel Thủ Đức", "234 Võ Văn Ngân, Thủ Đức"]);
+            // --- Stores ---
+            const stores = [
+                ["BH Pastel Quận 1", "123 Pasteur, Q1, TP.HCM"],
+                ["BH Pastel Thủ Đức", "234 Võ Văn Ngân, Thủ Đức"],
+                ["BH Pastel Gò Vấp", "15 Quang Trung, Gò Vấp"],
+                ["BH Pastel Bình Thạnh", "205 Xô Viết Nghệ Tĩnh, Bình Thạnh"],
+                ["BH Pastel Quận 7", "45 Nguyễn Thị Thập, Q7"]
+            ];
+            stores.forEach(s => db.run("INSERT INTO stores (name, address) VALUES (?, ?)", s));
 
-            // Promotions & Coupons
+            // --- Promotions ---
             db.run(`INSERT INTO promotions (title, banner_text) 
                     VALUES ('Giáng Sinh An Lành', 'NGÀY 10 LƯƠNG VỀ – MUA CÀNG NHIỀU GIÁ CÀNG RẺ')`);
-
             db.run(`INSERT INTO coupons (code, description, discount_type, discount_value, min_order_total, max_discount) 
                     VALUES ('LUONGVE10', 'Giảm 10% cho đơn từ 150k', 'percent', 10, 150000, 50000)`);
 
-            // Seed Products (Delayed to ensure cats exist)
-            // Seed Products with Image Fetching
-            const { fetchBhxImageUrls } = require('./bhxImageFetcher');
+            // --- Products (Advanced Seeding) ---
+            const { fetchBhxImageData } = require('./bhxImageFetcher');
 
-            fetchBhxImageUrls(50).then(imageUrls => {
-                const products = [
-                    { name: "Nước giặt OMO Matic Túi 3.6kg", cat: "Nước giặt", price: 168000, old: 210000, unit: "Túi", badge: "-20%", fresh: 0 },
-                    { name: "Ba chỉ heo VietGAP (tươi) 500g", cat: "Thịt heo", price: 85000, old: 95000, unit: "Khay", badge: "Tươi", fresh: 1 },
-                    { name: "Táo Envy Mỹ 1kg", cat: "Trái cây", price: 199000, old: 240000, unit: "kg", badge: "-17%", fresh: 1 },
-                    { name: "Thùng 24 lon Bia Tiger Crystal", cat: "Bia", price: 395000, old: 420000, unit: "Thùng", badge: "HOT", fresh: 0 },
-                    { name: "Rau muống 500g", cat: "Rau lá", price: 15000, old: 0, unit: "Bó", badge: "Mới", fresh: 1 },
-                    { name: "Kẹo Gậy Giáng Sinh (Hộp)", cat: "Kẹo Giáng Sinh", price: 45000, old: 55000, unit: "Hộp", badge: "Noel", fresh: 0 },
-                    { name: "Hộp Quà Bánh Quy Danisa", cat: "Hộp quà", price: 120000, old: 150000, unit: "Hộp", badge: "-20%", fresh: 0 },
-                    { name: "Sữa tươi Vinamilk 1L", cat: "Sữa tươi", price: 32000, old: 35000, unit: "Hộp", badge: "", fresh: 0 }
+            // Try to fetch 100 products
+            fetchBhxImageData(100).then(bhxItems => {
+                let bhxIndex = 0;
+                const pickBhxData = (fallbackName, fallbackCat) => {
+                    // Try to find a matching category item first
+                    let match = null;
+                    if (bhxItems.length > 0) {
+                        match = bhxItems.find(i => i.categoryHint && i.categoryHint.includes(fallbackCat) && !i.used);
+                        if (!match && bhxIndex < bhxItems.length) {
+                            // Fallback to sequential
+                            match = bhxItems[bhxIndex++];
+                        }
+                    }
+
+                    if (match) {
+                        match.used = true; // mark used
+                        return {
+                            name: match.name,
+                            price: match.price || 50000,
+                            img: match.imageUrl
+                        };
+                    }
+
+                    return {
+                        name: fallbackName,
+                        price: 0, // 0 will trigger manual override below
+                        img: "https://placehold.co/300x300?text=" + encodeURIComponent(fallbackName)
+                    };
+                };
+
+                // Base manual list to ensure we have products for EVERY category if scraper fails or is sparse
+                // We will merge this with fetched data
+                const baseProducts = [
+                    { n: "Nước giặt OMO Matic Túi 3.6kg", c: "Nước giặt", p: 168000, fresh: 0 },
+                    { n: "Ba chỉ heo VietGAP (tươi) 500g", c: "Thịt heo", p: 85000, fresh: 1 },
+                    { n: "Táo Envy Mỹ 1kg", c: "Trái cây", p: 199000, fresh: 1 },
+                    { n: "Thùng 24 lon Bia Tiger Crystal", c: "Bia", p: 395000, fresh: 0 },
+                    { n: "Rau muống 500g", c: "Rau lá", p: 15000, fresh: 1 },
+                    { n: "Kẹo Gậy Giáng Sinh (Hộp)", c: "Hàng Noel", p: 45000, fresh: 0 },
+                    { n: "Hộp Quà Bánh Quy Danisa", c: "Hàng Noel", p: 120000, fresh: 0 },
+                    { n: "Sữa tươi Vinamilk 1L", c: "Sữa tươi", p: 32000, fresh: 0 },
+                    { n: "Dầu ăn Tường An 1L", c: "Dầu ăn", p: 55000, fresh: 0 },
+                    { n: "Nước mắm Nam Ngư 750ml", c: "Nước mắm", p: 42000, fresh: 0 },
+                    { n: "Mì Hảo Hảo Tôm Chua Cay (Thùng)", c: "Mì ăn liền", p: 118000, fresh: 0 },
+                    { n: "Gạo thơm lại 5kg", c: "Gạo các loại", p: 120000, fresh: 0 },
+                    { n: "Nước ngọt Coca Cola 390ml", c: "Nước ngọt", p: 10000, fresh: 0 },
+                    { n: "Dầu gội Clear Men 650g", c: "Dầu gội", p: 175000, fresh: 0 },
+                    { n: "Kem đánh răng P/S", c: "Kem đánh răng", p: 35000, fresh: 0 }
                 ];
 
-                products.forEach((p, index) => {
-                    // Assign fetched image or fallback (remote)
-                    const img = imageUrls[index] || "https://placehold.co/300x300?text=" + encodeURIComponent(p.name);
+                baseProducts.forEach(bp => {
+                    const data = pickBhxData(bp.n, bp.c);
+                    // Prioritize fetched data if available
+                    const finalName = data.name;
+                    const finalPrice = data.price > 0 ? data.price : bp.p;
+                    const finalImg = data.img;
 
-                    db.get("SELECT id FROM categories WHERE name = ?", [p.cat], (err, r) => {
-                        if (r) {
-                            db.run(`INSERT INTO products (name, category_id, price, old_price, unit, badge, is_fresh, image_url, description) 
-                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                                [p.name, r.id, p.price, p.old, p.unit, p.badge, p.fresh, img, `Mô tả cho ${p.name}`]);
-                        }
+                    db.get("SELECT id FROM categories WHERE name = ?", [bp.c], (err, r) => {
+                        let catId = r ? r.id : 1; // default to first cat if not found
+
+                        // Insert
+                        db.run(`INSERT INTO products (name, category_id, price, old_price, unit, badge, is_fresh, image_url, description) 
+                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                            [finalName, catId, finalPrice, finalPrice * 1.1, "Cái", "", bp.fresh, finalImg, `Mô tả cho ${finalName}`]);
                     });
                 });
+
+                // If we fetched MORE items than base, insert them too (up to 30)
+                const remaining = bhxItems.filter(i => !i.used).slice(0, 30);
+                remaining.forEach(item => {
+                    // Try to guess category ID from hint
+                    // This is fuzzy but okay for demo
+                    const catName = item.categoryHint || "Bánh kẹo các loại";
+
+                    db.get("SELECT id FROM categories WHERE name LIKE ?", [`%${catName}%`], (err, r) => {
+                        const catId = r ? r.id : 6; // default fallback
+                        db.run(`INSERT INTO products (name, category_id, price, old_price, unit, badge, is_fresh, image_url, description) 
+                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                            [item.name, catId, item.price, item.price * 1.2, "Cái", "", 0, item.imageUrl, `Sản phẩm ${item.name}`]);
+                    });
+                });
+
             });
         }
     });
