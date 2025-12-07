@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bách Hóa Pastel - Noel Theme</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Snow Canvas -->
+    <canvas id="snowCanvas"></canvas>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="#" class="logo" onclick="app.resetHome(); return false;">
+                <div class="logo-text">
+                    <span class="logo-line1">BÁCH HÓA <i class="fa-solid fa-cookie-bite"
+                            style="font-size:0.8em; animation: sway 3s infinite"></i></span>
+                    <span class="logo-line2">PASTEL</span>
+                </div>
+            </a>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Bạn tìm gì hôm nay?">
+                <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <div class="header-actions">
+                <!-- Select Location -->
+                <div>
+                    <i class="fa-solid fa-location-dot" style="color:var(--danger)"></i>
+                    <select
+                        style="border:none;background:transparent;font-family:inherit;font-weight:600;cursor:pointer">
+                        <option>TP.HCM</option>
+                        <option>Hà Nội</option>
+                        <option>Đà Nẵng</option>
+                    </select>
+                </div>
+
+                <!-- Noel Toggle -->
+                <button class="noel-toggle" onclick="app.toggleNoelMode()">
+                    <span>☃️ Noel Mode</span>
+                </button>
+
+                <div class="auth-box" id="authBox">
+                    <!-- JS Injected -->
+                </div>
+
+                <div class="header-btns">
+                    <button class="icon-btn" onclick="app.openOrderHistory()" title="Đơn hàng">
+                        <i class="fa-solid fa-file-invoice"></i>
+                    </button>
+                    <button class="icon-btn cart-btn" onclick="app.toggleCart()">
+                        <i class="fa-solid fa-cart-shopping" style="animation: bounce 3s infinite"></i>
+                        <span id="cartBadge" class="badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mini-menu-bar">
+            <div class="container" style="display:flex; gap:20px; padding:10px 16px; overflow-x:auto;">
+                <div style="display:flex; gap:5px; align-items:center"><i class="fa-solid fa-bolt"
+                        style="color:orange"></i> Flash sale</div>
+                <div style="display:flex; gap:5px; align-items:center"><i class="fa-solid fa-gift"
+                        style="color:red"></i> Quà Noel</div>
+                <div style="display:flex; gap:5px; align-items:center"><i class="fa-solid fa-carrot"
+                        style="color:green"></i> Tươi sống</div>
+                <div id="adminLink" style="display:none"><a href="admin.html"><i class="fa-solid fa-user-shield"></i>
+                        <b>Admin</b></a></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="container main-layout">
+        <aside class="sidebar" id="sidebarContainer">
+            <div class="sidebar-header" style="font-weight:bold; margin-bottom:10px">Danh mục</div>
+            <div id="categoryList">Waiting for API...</div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Banner with floating icons -->
+            <section class="hero-banner" id="heroBanner">
+                <!-- Injected by JS -->
+            </section>
+
+            <!-- Brands -->
+            <section style="margin-bottom:30px">
+                <h2>Gian hàng & Ưu đãi</h2>
+                <div id="brandGrid" style="display:flex; gap:16px; overflow-x:auto; padding-bottom:10px"></div>
+            </section>
+
+            <!-- Products -->
+            <section>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px">
+                    <h2 id="productSectionTitle">Sản phẩm nổi bật</h2>
+                    <button class="btn-text" style="color:var(--primary-dark); font-weight:600"
+                        onclick="app.resetHome()">Xem tất cả</button>
+                </div>
+                <div id="productGrid" class="product-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- QuickView -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="app.closeModal('quickViewModal')">&times;</span>
+            <div id="quickViewBody"></div>
+        </div>
+    </div>
+
+    <!-- Auth -->
+    <div id="authModal" class="modal">
+        <div class="modal-content" style="text-align:center">
+            <span class="close-btn" onclick="app.closeModal('authModal')">&times;</span>
+            <h2 style="color:var(--primary-dark)">Thành viên Bách Hóa Pastel</h2>
+            <div style="display:flex; gap:10px; margin-bottom:20px; justify-content:center">
+                <button class="btn btn-outline"
+                    onclick="document.getElementById('loginForm').style.display='block'; document.getElementById('regForm').style.display='none'">Đăng
+                    Nhập</button>
+                <button class="btn btn-outline"
+                    onclick="document.getElementById('loginForm').style.display='none'; document.getElementById('regForm').style.display='block'">Đăng
+                    Ký</button>
+            </div>
+
+            <form id="loginForm" onsubmit="app.handleLogin(event)">
+                <div class="form-group"><input name="email" type="email" placeholder="Email (admin@bachhoa.com)"
+                        required></div>
+                <div class="form-group"><input name="password" type="password" placeholder="Mật khẩu (admin123)"
+                        required></div>
+                <button class="btn btn-primary btn-block">Đăng Nhập</button>
+            </form>
+
+            <form id="regForm" style="display:none" onsubmit="app.handleRegister(event)">
+                <div class="form-group"><input name="name" placeholder="Họ tên" required></div>
+                <div class="form-group"><input name="email" type="email" placeholder="Email" required></div>
+                <div class="form-group"><input name="phone" placeholder="SĐT" required></div>
+                <div class="form-group"><input name="password" type="password" placeholder="Mật khẩu" required></div>
+                <button class="btn btn-primary btn-block">Đăng Ký</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Checkout -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="app.closeModal('checkoutModal')">&times;</span>
+            <h2>Thanh Toán</h2>
+            <form onsubmit="return false">
+                <div class="form-group"><label>Họ tên</label><input id="cxName" required></div>
+                <div class="form-group"><label>SĐT</label><input id="cxPhone" required></div>
+                <div class="form-group"><label>Địa chỉ</label><input id="cxAddress" required></div>
+                <div class="form-group">
+                    <label>Cách thanh toán</label>
+                    <select id="cxMethod">
+                        <option value="COD">Thanh toán khi nhận hàng</option>
+                        <option value="EWALLET">Ví điện tử</option>
+                    </select>
+                </div>
+                <div style="text-align:right">
+                    <button class="btn btn-primary" onclick="app.processCheckout()">Xác Nhận Đặt Hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Orders -->
+    <div id="ordersModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="app.closeModal('ordersModal')">&times;</span>
+            <h2>Đơn hàng của tôi</h2>
+            <div id="ordersList" style="max-height:400px; overflow-y:auto"></div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="cart-drawer">
+        <div style="padding:20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between">
+            <h3>Giỏ hàng</h3>
+            <span style="font-size:1.5rem; cursor:pointer" onclick="app.toggleCart()">&times;</span>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-footer">
+            <div style="display:flex; gap:10px; margin-bottom:10px">
+                <input id="couponInput" placeholder="Mã giảm giá (LUONGVE10)"
+                    style="flex:1; padding:8px; border:1px solid #ddd; border-radius:6px">
+                <button class="btn btn-outline btn-sm" onclick="app.applyCoupon()">Áp dụng</button>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px"><span>Tạm tính:</span><span
+                    id="cartSubtotal">0đ</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px; color:red"><span>Giảm
+                    giá:</span><span id="cartDiscount">-0đ</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px"><span>Ship:</span><span
+                    id="cartShipping">...</span></div>
+            <div
+                style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.2rem; margin-top:10px; border-top:1px dashed #ccc; padding-top:10px">
+                <span>Tổng:</span><span id="cartTotal">0đ</span></div>
+            <div id="freeshipBadge"
+                style="background:#e0fcf4; color:#4caf93; padding:5px; text-align:center; border-radius:4px; margin:10px 0; font-size:0.9rem; display:none">
+                ✅ Freeship 3km</div>
+            <button class="btn btn-primary btn-block" onclick="app.openCheckout()">Thanh Toán</button>
+        </div>
+    </div>
+    <div id="overlay"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:900; display:none"
+        onclick="app.toggleCart()"></div>
+
+    <!-- Toast & Live Run -->
+    <div id="toast" class="toast"></div>
+    <div class="live-run-btn" onclick="app.init()">🚀 Live Run</div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

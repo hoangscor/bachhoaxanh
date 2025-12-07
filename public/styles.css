@@ -1,0 +1,589 @@
+/* Bách Hóa Pastel - Noel Theme - Fullstack Styles */
+
+:root {
+    /* Brand Colors */
+    --primary: #9be7c4;
+    --primary-dark: #4caf93;
+    --accent: #ffd27f;
+    --danger: #ff6b6b;
+    --text-main: #222b45;
+
+    /* Default Backgrounds */
+    --bg: #f5f9fb;
+
+    /* Noel Theme Colors */
+    --bg-noel-top: #182848;
+    --bg-noel-bottom: #4b6cb7;
+
+    /* Sizes */
+    --header-height: 80px;
+    --border-radius: 12px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Base */
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg);
+    margin: 0;
+    transition: background 0.5s ease;
+    overflow-x: hidden;
+}
+
+/* NOEL MODE ACTIVE */
+body.noel-active {
+    background: linear-gradient(to bottom, var(--bg-noel-top), var(--bg-noel-bottom));
+    background-attachment: fixed;
+    color: #fff;
+    /* Switch text to light context where appropriate */
+}
+
+/* When Noel mode is on, adjust containers to be readable */
+body.noel-active .main-header,
+body.noel-active .sidebar,
+body.noel-active .product-card,
+body.noel-active .brand-card,
+body.noel-active .mini-menu-bar,
+body.noel-active .cart-drawer,
+body.noel-active .modal-content,
+body.noel-active footer {
+    background: rgba(255, 255, 255, 0.95);
+    /* Slight transparency */
+    color: var(--text-main);
+    /* Keep text dark inside cards */
+}
+
+body.noel-active .hero-banner {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 230, 250, 0.9));
+}
+
+/* Animations */
+@keyframes sway {
+
+    0%,
+    100% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes ring {
+    0% {
+        transform: rotate(0);
+    }
+
+    25% {
+        transform: rotate(10deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Snow Canvas */
+#snowCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+}
+
+body.noel-active #snowCanvas {
+    display: block;
+}
+
+/* --- Layout --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: inherit;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: var(--primary-dark);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+    transform: scale(1.02);
+}
+
+.btn-outline {
+    border: 2px solid var(--primary-dark);
+    color: var(--primary-dark);
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* Header */
+.main-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    gap: 20px;
+}
+
+.logo-text {
+    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.logo-line1 {
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+}
+
+.logo-line2 {
+    color: var(--accent);
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    background: #f0f2f5;
+    padding: 4px;
+    border-radius: 50px;
+}
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    flex: 1;
+    padding: 0 16px;
+    outline: none;
+}
+
+.search-bar button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.icon-btn {
+    position: relative;
+    font-size: 1.2rem;
+    padding: 6px;
+}
+
+.badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: var(--danger);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Noel Toggle */
+.noel-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0f2f5;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.body.noel-active .noel-toggle {
+    background: #fff;
+    color: var(--text-main);
+}
+
+.noel-toggle:hover {
+    border-color: var(--primary-dark);
+}
+
+/* Sidebar */
+.main-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 24px;
+    margin-top: 24px;
+    margin-bottom: 40px;
+}
+
+.sidebar {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    align-self: start;
+    box-shadow: var(--shadow);
+}
+
+.cate-parent {
+    padding: 10px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.cate-parent:hover {
+    background: #f0f7f5;
+    color: var(--primary-dark);
+}
+
+.cate-list {
+    padding-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+}
+
+.cate-item {
+    padding: 8px;
+    font-size: 0.9rem;
+    color: #666;
+    cursor: pointer;
+}
+
+.cate-item:hover {
+    color: var(--primary-dark);
+}
+
+/* Banner */
+.hero-banner {
+    background: linear-gradient(135deg, #e3fdf5, #ffe6fa);
+    padding: 40px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-icon {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.8;
+    color: var(--primary-dark);
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--primary);
+}
+
+.prod-img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.prod-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--danger);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.fresh-tag {
+    font-size: 0.75rem;
+    color: #4caf93;
+    background: #e0fcf4;
+    padding: 2px 6px;
+    border-radius: 4px;
+    align-self: flex-start;
+    margin-bottom: auto;
+}
+
+/* Cart Drawer */
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100%;
+    background: white;
+    z-index: 999;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-drawer.active {
+    right: 0;
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.cart-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.cart-footer {
+    padding: 20px;
+    background: #fcfcfc;
+    border-top: 1px solid #eee;
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* Live Run */
+.live-run-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary-dark);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(76, 175, 147, 0.4);
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 900;
+    transition: 0.2s;
+}
+
+.live-run-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 2000;
+}
+
+.toast.show {
+    opacity: 1;
+    bottom: 100px;
+}
+
+/* Responsive */
+@media(max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media(max-width: 768px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header-content {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px;
+    }
+
+    .search-bar {
+        order: 3;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .cart-drawer {
+        width: 100%;
+        right: -100%;
+    }
+}

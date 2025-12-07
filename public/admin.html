@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Bách Hóa Pastel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container" style="padding-top:20px">
+        <header class="admin-header">
+            <h2><i class="fa-solid fa-user-shield"></i> Trang Quản Trị</h2>
+            <button onclick="logout()" style="color:white; font-weight:bold">Đăng xuất</button>
+        </header>
+
+        <div class="auth-box" id="loginArea">
+            <p>Vui lòng đăng nhập quyền Admin để tiếp tục.</p>
+            <button onclick="window.location.href='index.html'" class="btn btn-primary">Về Trang Chủ</button>
+        </div>
+
+        <div id="adminContent" style="display:none">
+            <!-- TABS -->
+            <div style="display:flex; gap:10px; margin-bottom:20px">
+                <button class="btn btn-outline" onclick="loadProducts()">Quản lý Sản Phẩm</button>
+                <button class="btn btn-outline" onclick="loadOrders()">Quản lý Đơn Hàng</button>
+            </div>
+
+            <div id="contentArea"></div>
+        </div>
+    </div>
+
+    <script>
+        const API = '/api';
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        if (!token || user.role !== 'admin') {
+            document.getElementById('loginArea').innerHTML += '<div style="color:red; margin-top:10px">Bạn không phải Admin hoặc chưa đăng nhập.</div>';
+        } else {
+            document.getElementById('loginArea').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            loadOrders(); // Load default
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        }
+
+        async function loadOrders() {
+            const res = await fetch(API + '/orders', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            const orders = await res.json();
+
+            let html = `<h3>Danh sách đơn hàng</h3>
+                        <table class="admin-table">
+                        <thead><tr><th>ID</th><th>User</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
+                        <tbody>`;
+
+            orders.forEach(o => {
+                html += `
+                    <tr>
+                        <td>${o.id}</td>
+                        <td>${o.shipping_name}</td>
+                        <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(o.total_amount)}</td>
+                        <td>
+                            <select onchange="updateStatus('${o.id}', this.value)" class="status-select">
+                                <option value="PLACED" ${o.status === 'PLACED' ? 'selected' : ''}>Đã đặt</option>
+                                <option value="PREPARING" ${o.status === 'PREPARING' ? 'selected' : ''}>Đang chuẩn bị</option>
+                                <option value="DELIVERING" ${o.status === 'DELIVERING' ? 'selected' : ''}>Đang giao</option>
+                                <option value="COMPLETED" ${o.status === 'COMPLETED' ? 'selected' : ''}>Hoàn tất</option>
+                                <option value="CANCELLED" ${o.status === 'CANCELLED' ? 'selected' : ''}>Hủy</option>
+                            </select>
+                        </td>
+                        <td><button class="btn-sm btn-primary">Chi tiết</button></td>
+                    </tr>
+                `;
+            });
+            html += '</tbody></table>';
+            document.getElementById('contentArea').innerHTML = html;
+        }
+
+        async function updateStatus(id, newStatus) {
+            await fetch(API + `/orders/${id}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({ status: newStatus })
+            });
+            alert("Cập nhật thành công!");
+        }
+
+        async function loadProducts() {
+            const res = await fetch(API + '/products?limit=100');
+            const data = await res.json();
+            const products = data.data;
+
+            let html = `<h3>Danh sách sản phẩm</h3>
+                        <table class="admin-table">
+                        <thead><tr><th>ID</th><th>Name</th><th>Price</th><th>Active</th></tr></thead>
+                        <tbody>`;
+            products.forEach(p => {
+                html += `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.name}</td>
+                        <td>${p.price}</td>
+                        <td>${p.is_active ? 'Yes' : 'No'}</td>
+                    </tr>
+                `;
+            });
+            html += '</tbody></table>';
+            document.getElementById('contentArea').innerHTML = html;
+        }
+    </script>
+</body>
+
+</html>
