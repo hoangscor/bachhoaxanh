@@ -1,0 +1,128 @@
+[
+    {
+        "main": "Thịt, cá, trứng, hải sản",
+        "sub": "Thịt heo",
+        "url": "https://www.bachhoaxanh.com/thit-heo",
+        "priority": 1
+    },
+    {
+        "main": "Thịt, cá, trứng, hải sản",
+        "sub": "Thịt bò",
+        "url": "https://www.bachhoaxanh.com/thit-bo",
+        "priority": 1
+    },
+    {
+        "main": "Thịt, cá, trứng, hải sản",
+        "sub": "Thịt gà",
+        "url": "https://www.bachhoaxanh.com/thit-ga",
+        "priority": 1
+    },
+    {
+        "main": "Thịt, cá, trứng, hải sản",
+        "sub": "Cá, hải sản",
+        "url": "https://www.bachhoaxanh.com/ca-tom-muc-ech",
+        "priority": 1
+    },
+    {
+        "main": "Thịt, cá, trứng, hải sản",
+        "sub": "Trứng",
+        "url": "https://www.bachhoaxanh.com/trung",
+        "priority": 2
+    },
+    {
+        "main": "Rau, củ, nấm, trái cây",
+        "sub": "Trái cây",
+        "url": "https://www.bachhoaxanh.com/trai-cay",
+        "priority": 1
+    },
+    {
+        "main": "Rau, củ, nấm, trái cây",
+        "sub": "Rau lá",
+        "url": "https://www.bachhoaxanh.com/rau",
+        "priority": 1
+    },
+    {
+        "main": "Rau, củ, nấm, trái cây",
+        "sub": "Củ, quả",
+        "url": "https://www.bachhoaxanh.com/cu-qua",
+        "priority": 2
+    },
+    {
+        "main": "Gạo, bột, đồ khô",
+        "sub": "Gạo",
+        "url": "https://www.bachhoaxanh.com/gao",
+        "priority": 1
+    },
+    {
+        "main": "Gạo, bột, đồ khô",
+        "sub": "Bột",
+        "url": "https://www.bachhoaxanh.com/bot-lam-banh",
+        "priority": 2
+    },
+    {
+        "main": "Dầu ăn, gia vị",
+        "sub": "Dầu ăn",
+        "url": "https://www.bachhoaxanh.com/dau-an",
+        "priority": 1
+    },
+    {
+        "main": "Dầu ăn, gia vị",
+        "sub": "Nước mắm",
+        "url": "https://www.bachhoaxanh.com/nuoc-mam",
+        "priority": 2
+    },
+    {
+        "main": "Dầu ăn, gia vị",
+        "sub": "Nước tương",
+        "url": "https://www.bachhoaxanh.com/nuoc-tuong",
+        "priority": 2
+    },
+    {
+        "main": "Mì, miến, cháo",
+        "sub": "Mì ăn liền",
+        "url": "https://www.bachhoaxanh.com/mi-an-lien",
+        "priority": 1
+    },
+    {
+        "main": "Sữa các loại",
+        "sub": "Sữa tươi",
+        "url": "https://www.bachhoaxanh.com/sua-tuoi",
+        "priority": 1
+    },
+    {
+        "main": "Bia, nước giải khát",
+        "sub": "Nước ngọt",
+        "url": "https://www.bachhoaxanh.com/nuoc-ngot",
+        "priority": 1
+    },
+    {
+        "main": "Bia, nước giải khát",
+        "sub": "Nước suối",
+        "url": "https://www.bachhoaxanh.com/nuoc-suoi",
+        "priority": 2
+    },
+    {
+        "main": "Bánh kẹo",
+        "sub": "Bánh quy",
+        "url": "https://www.bachhoaxanh.com/banh-quy",
+        "priority": 1
+    },
+    {
+        "main": "Chăm sóc cá nhân",
+        "sub": "Dầu gội",
+        "url": "https://www.bachhoaxanh.com/dau-goi-dau",
+        "priority": 1
+    },
+    {
+        "main": "Chăm sóc cá nhân",
+        "sub": "Sữa tắm",
+        "url": "https://www.bachhoaxanh.com/sua-tam",
+        "priority": 2
+    },
+    {
+        "main": "Vệ sinh nhà cửa",
+        "sub": "Nước giặt",
+        "url": "https://www.bachhoaxanh.com/nuoc-giat",
+        "priority": 1
+    }
+]

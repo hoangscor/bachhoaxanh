@@ -105,7 +105,7 @@ const app = {
                 if (data.length > 0) {
                     dropdown.innerHTML = data.map(p => `
                         <div class="search-item" onclick="window.location.hash='#product/${p.id}'">
-                            <img src="${p.image_url}" onerror="this.src='https://via.placeholder.com/40'">
+                            <img src="${p.image_url || 'https://via.placeholder.com/40'}" onerror="this.onerror=null;this.src='https://via.placeholder.com/40'">
                             <div>
                                 <div style="font-weight:600">${p.name}</div>
                                 <div style="color:var(--danger)">${this.formatCurrency(p.price)}</div>
@@ -141,7 +141,10 @@ const app = {
             // Bind Data
             document.getElementById('pdCategory').innerText = p.category_name || '...';
             document.getElementById('pdName').innerText = p.name;
-            document.getElementById('pdImage').src = p.image_url;
+            const pdImg = document.getElementById('pdImage');
+            pdImg.onerror = function () { this.src = 'https://via.placeholder.com/500x500?text=No+Image'; };
+            pdImg.src = p.image_url || 'https://via.placeholder.com/500x500?text=No+Image';
+
             document.getElementById('pdTitle').innerText = p.name;
             document.getElementById('pdSku').innerText = p.id;
             document.getElementById('pdPrice').innerText = this.formatCurrency(p.price);
@@ -351,7 +354,7 @@ const app = {
             <div class="product-card" onclick="window.location.hash='#product/${p.id}'" style="cursor:pointer">
                 ${p.badge ? `<span class="prod-badge">${p.badge}</span>` : ''}
                 <div class="prod-img-wrap">
-                    <img src="${p.image_url}" class="prod-img" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
+                    <img src="${p.image_url || 'https://via.placeholder.com/300x300?text=No+Image'}" class="prod-img" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=No+Image'">
                 </div>
                 ${p.is_fresh ? `<span class="fresh-tag">Freeship 3km</span>` : ''}
                 <div style="flex:1">
@@ -485,7 +488,7 @@ const app = {
 
         container.innerHTML = this.state.cart.map(item => `
             <div class="cart-item">
-                <img src="${item.imageUrl}" style="width:50px;height:50px;object-fit:cover;border-radius:6px" onerror="this.src='https://via.placeholder.com/50'">
+                <img src="${item.imageUrl || 'https://via.placeholder.com/50'}" style="width:50px;height:50px;object-fit:cover;border-radius:6px" onerror="this.onerror=null;this.src='https://via.placeholder.com/50'">
                 <div style="flex:1">
                     <div style="font-weight:600;font-size:0.9rem">${item.name}</div>
                     <div style="color:var(--danger)">${this.formatCurrency(item.price)}</div>
@@ -729,7 +732,7 @@ const app = {
         const body = document.getElementById('quickViewBody');
         body.innerHTML = `
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start">
-                <img src="${prod.image_url}" style="width:100%; object-fit:contain; border-radius:8px" onerror="this.src='https://via.placeholder.com/150'">
+                <img src="${prod.image_url || 'https://via.placeholder.com/300x300?text=No+Image'}" style="width:100%; object-fit:contain; border-radius:8px" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=No+Image'">
                 <div>
                     <h2 style="margin-top:0">${prod.name}</h2>
                     <h3 style="color:#ff6b6b; font-size:1.5rem">${this.formatCurrency(prod.price)}</h3>

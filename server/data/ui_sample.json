@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Chân giò heo nhập khẩu 300g giá tốt tại Bách hoá XANH",
+    "price": 13500,
+    "image": "assets\\bhx-images\\chan-gio-heo-nhap-khau-300g-gia-tot-tai-bach-hoa-xanh.jpg",
+    "category": "Thịt heo",
+    "unit": "300g"
+  },
+  {
+    "id": 2,
+    "name": "Chân giò heo nhập khẩu giá tốt tại Bách hoá XANH",
+    "price": 29400,
+    "image": "assets\\bhx-images\\chan-gio-heo-nhap-khau-gia-tot-tai-bach-hoa-xanh.jpg",
+    "category": "Thịt heo",
+    "unit": null
+  },
+  {
+    "id": 3,
+    "name": "Xương que nhập khẩu đông lạnh 500g giá tốt tại Bách hoá XANH",
+    "price": 29900,
+    "image": "assets\\bhx-images\\xuong-que-nhap-khau-dong-lanh-500g-gia-tot-tai-bach-hoa-xanh.jpg",
+    "category": "Thịt heo",
+    "unit": "500g"
+  },
+  {
+    "id": 4,
+    "name": "Sườn non heo nhập khẩu Brazil 300g tại Bách hoá XANH",
+    "price": 48000,
+    "image": "assets\\bhx-images\\suon-non-heo-nhap-khau-brazil-300g-tai-bach-hoa-xanh.jpg",
+    "category": "Thịt heo",
+    "unit": "300g"
+  },
+  {
+    "id": 5,
+    "name": "Sườn cốt lết heo làm sạch 500g giá tốt tại Bách hoá XANH",
+    "price": 64000,
+    "image": "assets\\bhx-images\\suon-cot-let-heo-lam-sach-500g-gia-tot-tai-bach-hoa-xanh.jpg",
+    "category": "Thịt heo",
+    "unit": "500g"
+  }
+]

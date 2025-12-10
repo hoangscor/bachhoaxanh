@@ -232,7 +232,18 @@ function seedData() {
 
                 // Base manual list to ensure we have products for EVERY category if scraper fails or is sparse
                 // We will merge this with fetched data
+                // Base manual list to ensure we have products for EVERY category if scraper fails or is sparse
+                // We will merge this with fetched data
                 const baseProducts = [
+                    // Specific Request: Gạo thơm Vua Gạo 5kg
+                    {
+                        n: "Gạo thơm Vua Gạo 5kg",
+                        c: "Gạo các loại",
+                        p: 180000,
+                        fresh: 0,
+                        // To add real image, paste URL here
+                        img: "https://cdnv2.tgdd.vn/bhx-static/bhx/Products/Images/2513/332640/bhx/thiet-ke-chua-co-ten-2024-12-02t101141121_202412021017531362.jpg"
+                    },
                     { n: "Nước giặt OMO Matic Túi 3.6kg", c: "Nước giặt", p: 168000, fresh: 0 },
                     { n: "Ba chỉ heo VietGAP (tươi) 500g", c: "Thịt heo", p: 85000, fresh: 1 },
                     { n: "Táo Envy Mỹ 1kg", c: "Trái cây", p: 199000, fresh: 1 },
@@ -252,10 +263,10 @@ function seedData() {
 
                 baseProducts.forEach(bp => {
                     const data = pickBhxData(bp.n, bp.c);
-                    // Prioritize fetched data if available
-                    const finalName = data.name;
-                    const finalPrice = data.price > 0 ? data.price : bp.p;
-                    const finalImg = data.img;
+                    // Prioritize manual URL if set in baseProducts, else use fetched, else fallback
+                    const finalName = bp.n; // Prioritize our manual name for specific items
+                    const finalPrice = bp.p > 0 ? bp.p : data.price;
+                    const finalImg = bp.img ? bp.img : data.img;
 
                     db.get("SELECT id FROM categories WHERE name = ?", [bp.c], (err, r) => {
                         let catId = r ? r.id : 1; // default to first cat if not found

@@ -28,6 +28,31 @@ Phiên bản nâng cấp toàn diện của Bách Hóa Pastel, mô phỏng chứ
 
 ---
 
+## 🖼️ Quản lý Hình ảnh (Mới)
+
+Dự án ưu tiên hiển thị **ảnh thật (Online URL)** thay vì placeholder. Có 3 cách để cập nhật ảnh:
+
+### 1. Nhập tay trong Admin Panel
+- Đăng nhập Admin (`admin@bachhoa.com` / `admin123`).
+- Vào tab **Quản lý Sản Phẩm**.
+- Bấm **Sửa** (icon bút chì) hoặc **Thêm sản phẩm**.
+- Dán link ảnh online vào ô **Hình ảnh URL**.
+- Bấm **Lưu**.
+
+### 2. Import hàng loạt (Bulk Import)
+Sử dụng công cụ mapping để cập nhật ảnh cho nhiều sản phẩm cùng lúc dựa trên từ khóa.
+1. Mở file `server/image-mapping.json`.
+2. Thêm object mới: `{"keyword": "ten san pham", "image_url": "https://..."}`.
+3. Chạy lệnh:
+   ```bash
+   node server/applyImageMapping.js
+   ```
+
+### 3. Cấu hình Seed Data
+Sửa trực tiếp trong `server/db.js` phần `seedData()` để gán ảnh cứng ngay khi khởi tạo lại DB.
+
+---
+
 ## 🛠️ Cài đặt & Chạy
 
 1. **Cài đặt thư viện**:

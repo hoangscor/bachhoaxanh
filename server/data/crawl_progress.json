@@ -1,0 +1,926 @@
+{
+  "completed_subcategories": [
+    {
+      "main": "Thịt, cá, trứng, hải sản",
+      "sub": "Thịt heo",
+      "count": 16,
+      "timestamp": "2025-12-09T13:00:56.136Z"
+    },
+    {
+      "main": "Thịt, cá, trứng, hải sản",
+      "sub": "Thịt bò",
+      "count": 11,
+      "timestamp": "2025-12-09T13:02:06.468Z"
+    },
+    {
+      "main": "Thịt, cá, trứng, hải sản",
+      "sub": "Thịt gà, vịt",
+      "count": 15,
+      "timestamp": "2025-12-09T13:03:42.235Z"
+    },
+    {
+      "main": "Thịt, cá, trứng, hải sản",
+      "sub": "Cá, hải sản",
+      "count": 14,
+      "timestamp": "2025-12-09T13:05:11.333Z"
+    },
+    {
+      "main": "Thịt, cá, trứng, hải sản",
+      "sub": "Trứng gà, vịt, cút",
+      "count": 9,
+      "timestamp": "2025-12-09T13:06:07.910Z"
+    },
+    {
+      "main": "Rau, củ, nấm, trái cây",
+      "sub": "Trái cây",
+      "count": 13,
+      "timestamp": "2025-12-09T13:07:22.186Z"
+    },
+    {
+      "main": "Rau, củ, nấm, trái cây",
+      "sub": "Rau lá",
+      "count": 10,
+      "timestamp": "2025-12-09T13:08:18.423Z"
+    },
+    {
+      "main": "Rau, củ, nấm, trái cây",
+      "sub": "Củ, quả",
+      "count": 13,
+      "timestamp": "2025-12-09T13:09:47.024Z"
+    },
+    {
+      "main": "Rau, củ, nấm, trái cây",
+      "sub": "Nấm các loại",
+      "count": 11,
+      "timestamp": "2025-12-09T13:10:50.149Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Dầu ăn",
+      "count": 16,
+      "timestamp": "2025-12-09T13:12:57.343Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Nước mắm",
+      "count": 13,
+      "timestamp": "2025-12-09T13:14:35.470Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Nước tương",
+      "count": 13,
+      "timestamp": "2025-12-09T13:16:08.764Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Đường",
+      "count": 11,
+      "timestamp": "2025-12-09T13:17:30.806Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Hạt nêm, bột ngọt, bột canh",
+      "count": 13,
+      "timestamp": "2025-12-09T13:19:39.767Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Muối",
+      "count": 14,
+      "timestamp": "2025-12-09T13:21:11.258Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Tương ớt-đen, mayonnaise",
+      "count": 13,
+      "timestamp": "2025-12-09T13:23:02.061Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Dầu hào, giấm, bơ",
+      "count": 11,
+      "timestamp": "2025-12-09T13:24:27.305Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Gia vị nêm sẵn",
+      "count": 11,
+      "timestamp": "2025-12-09T13:26:00.893Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Nước chấm, mắm",
+      "count": 12,
+      "timestamp": "2025-12-09T13:27:28.218Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Tiêu, sa tế, ớt bột",
+      "count": 12,
+      "timestamp": "2025-12-09T13:29:23.344Z"
+    },
+    {
+      "main": "Dầu ăn, nước chấm, gia vị",
+      "sub": "Bột nghệ, tỏi, hồi, quế,...",
+      "count": 11,
+      "timestamp": "2025-12-09T13:31:01.380Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Gạo, nếp",
+      "count": 13,
+      "timestamp": "2025-12-09T13:32:41.423Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Xúc xích",
+      "count": 10,
+      "timestamp": "2025-12-09T13:34:03.108Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Cá hộp",
+      "count": 9,
+      "timestamp": "2025-12-09T13:35:03.576Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Heo, bò, pate hộp",
+      "count": 10,
+      "timestamp": "2025-12-09T13:36:14.144Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Mì, hủ tiếu chay",
+      "count": 12,
+      "timestamp": "2025-12-09T13:37:46.672Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Chao",
+      "count": 2,
+      "timestamp": "2025-12-09T13:38:07.667Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Đồ chay các loại",
+      "count": 9,
+      "timestamp": "2025-12-09T13:39:49.819Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Bột các loại",
+      "count": 13,
+      "timestamp": "2025-12-09T13:41:15.974Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Đậu, nấm, đồ khô",
+      "count": 10,
+      "timestamp": "2025-12-09T13:42:29.773Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Rong biển",
+      "count": 12,
+      "timestamp": "2025-12-09T13:44:11.234Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Cá mắm, dưa mắm",
+      "count": 2,
+      "timestamp": "2025-12-09T13:44:30.135Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Bánh phồng, bánh đa",
+      "count": 3,
+      "timestamp": "2025-12-09T13:44:55.397Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Bánh tráng",
+      "count": 10,
+      "timestamp": "2025-12-09T13:46:24.245Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Nước cốt dừa lon",
+      "count": 5,
+      "timestamp": "2025-12-09T13:47:10.410Z"
+    },
+    {
+      "main": "Gạo, bột, đồ khô",
+      "sub": "Ngũ cốc, yến mạch",
+      "count": 8,
+      "timestamp": "2025-12-09T13:48:35.936Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Mì ăn liền",
+      "count": 15,
+      "timestamp": "2025-12-09T13:50:59.883Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Hủ tiếu, miến",
+      "count": 15,
+      "timestamp": "2025-12-09T13:53:17.156Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Phở, bún ăn liền",
+      "count": 12,
+      "timestamp": "2025-12-09T13:54:46.594Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Cháo gói, cháo tươi",
+      "count": 11,
+      "timestamp": "2025-12-09T13:56:04.575Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Bún các loại",
+      "count": 11,
+      "timestamp": "2025-12-09T13:57:16.995Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Nui các loại",
+      "count": 12,
+      "timestamp": "2025-12-09T13:58:41.372Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Miến, hủ tiếu, phở khô",
+      "count": 10,
+      "timestamp": "2025-12-09T13:59:54.777Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Bánh gạo Hàn Quốc",
+      "count": 4,
+      "timestamp": "2025-12-09T14:00:30.997Z"
+    },
+    {
+      "main": "Mì, miến, cháo, phở",
+      "sub": "Mì Ý, mì trứng",
+      "count": 5,
+      "timestamp": "2025-12-09T14:01:07.389Z"
+    },
+    {
+      "main": "Sữa các loại",
+      "sub": "Sữa tươi",
+      "count": 14,
+      "timestamp": "2025-12-09T14:02:56.810Z"
+    },
+    {
+      "main": "Sữa các loại",
+      "sub": "Sữa ca cao, lúa mạch",
+      "count": 12,
+      "timestamp": "2025-12-09T14:04:47.496Z"
+    },
+    {
+      "main": "Sữa các loại",
+      "sub": "Sữa chua uống liền",
+      "count": 13,
+      "timestamp": "2025-12-09T14:07:18.971Z"
+    },
+    {
+      "main": "Sữa các loại",
+      "sub": "Sữa pha sẵn",
+      "count": 13,
+      "timestamp": "2025-12-09T14:09:09.356Z"
+    },
+    {
+      "main": "Sữa các loại",
+      "sub": "Sữa hạt, sữa đậu",
+      "count": 13,
+      "timestamp": "2025-12-09T14:11:04.846Z"
+    },
+    {
+      "main": "Sữa các loại",
+      "sub": "Sữa đặc",
+      "count": 6,
+      "timestamp": "2025-12-09T14:11:57.194Z"
+    },
+    {
+      "main": "Sữa các loại",
+      "sub": "Ngũ cốc",
+      "count": 8,
+      "timestamp": "2025-12-09T14:13:13.806Z"
+    },
+    {
+      "main": "Sữa các loại",
+      "sub": "Sữa chua",
+      "count": 14,
+      "timestamp": "2025-12-09T14:15:28.530Z"
+    },
+    {
+      "main": "Kem, sữa chua",
+      "sub": "Kem",
+      "count": 14,
+      "timestamp": "2025-12-09T14:17:29.652Z"
+    },
+    {
+      "main": "Kem, sữa chua",
+      "sub": "Sữa chua",
+      "count": 14,
+      "timestamp": "2025-12-09T14:19:39.395Z"
+    },
+    {
+      "main": "Thực phẩm đông mát",
+      "sub": "Xúc xích, lạp xưởng, giò chả",
+      "count": 12,
+      "timestamp": "2025-12-09T14:22:03.855Z"
+    },
+    {
+      "main": "Thực phẩm đông mát",
+      "sub": "Hàng đông chế biến",
+      "count": 13,
+      "timestamp": "2025-12-09T14:24:31.832Z"
+    },
+    {
+      "main": "Thực phẩm đông mát",
+      "sub": "Hàng mát chế biến",
+      "count": 12,
+      "timestamp": "2025-12-09T14:26:58.298Z"
+    },
+    {
+      "main": "Thực phẩm đông mát",
+      "sub": "Chả giò",
+      "count": 13,
+      "timestamp": "2025-12-09T14:30:12.933Z"
+    },
+    {
+      "main": "Thực phẩm đông mát",
+      "sub": "Viên đông, viên mát",
+      "count": 13,
+      "timestamp": "2025-12-09T14:33:48.904Z"
+    },
+    {
+      "main": "Thực phẩm đông mát",
+      "sub": "Thủy hải sản, thịt đông",
+      "count": 14,
+      "timestamp": "2025-12-09T14:36:17.099Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Bia, nước có cồn",
+      "count": 16,
+      "timestamp": "2025-12-09T14:39:37.832Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Rượu",
+      "count": 16,
+      "timestamp": "2025-12-09T14:41:47.449Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Nước trà",
+      "count": 0,
+      "timestamp": "2025-12-09T14:41:51.973Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Nước ngọt",
+      "count": 14,
+      "timestamp": "2025-12-09T14:43:23.831Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Nước tăng lực, bù khoáng",
+      "count": 13,
+      "timestamp": "2025-12-09T14:45:13.119Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Nước suối",
+      "count": 13,
+      "timestamp": "2025-12-09T14:46:41.263Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Nước yến",
+      "count": 14,
+      "timestamp": "2025-12-09T14:48:40.842Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Nước ép trái cây",
+      "count": 12,
+      "timestamp": "2025-12-09T14:50:03.505Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Sữa trái cây",
+      "count": 12,
+      "timestamp": "2025-12-09T14:51:31.878Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Trái cây hộp, si rô",
+      "count": 1,
+      "timestamp": "2025-12-09T14:51:44.180Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Cà phê hoà tan",
+      "count": 12,
+      "timestamp": "2025-12-09T14:53:16.741Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Trà khô, túi lọc",
+      "count": 10,
+      "timestamp": "2025-12-09T14:54:23.822Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Cà phê pha phin",
+      "count": 9,
+      "timestamp": "2025-12-09T14:55:36.302Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Cà phê lon",
+      "count": 3,
+      "timestamp": "2025-12-09T14:56:00.286Z"
+    },
+    {
+      "main": "Bia, nước giải khát",
+      "sub": "Mật ong",
+      "count": 1,
+      "timestamp": "2025-12-09T14:56:15.746Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Giỏ quà tết",
+      "count": 10,
+      "timestamp": "2025-12-09T14:57:29.409Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh quy",
+      "count": 13,
+      "timestamp": "2025-12-09T14:58:52.437Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh tươi, Sandwich",
+      "count": 14,
+      "timestamp": "2025-12-09T15:00:44.480Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh bông lan",
+      "count": 12,
+      "timestamp": "2025-12-09T15:02:29.830Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh Chocopie",
+      "count": 8,
+      "timestamp": "2025-12-09T15:03:46.481Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh snack",
+      "count": 16,
+      "timestamp": "2025-12-09T15:05:52.158Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh gạo",
+      "count": 4,
+      "timestamp": "2025-12-09T15:06:23.088Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh que",
+      "count": 10,
+      "timestamp": "2025-12-09T15:07:35.040Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh quế",
+      "count": 10,
+      "timestamp": "2025-12-09T15:08:47.602Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Kẹo cứng",
+      "count": 15,
+      "timestamp": "2025-12-09T15:10:41.818Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Kẹo dẻo, kẹo marshmallow",
+      "count": 14,
+      "timestamp": "2025-12-09T15:12:12.328Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Kẹo Singum",
+      "count": 11,
+      "timestamp": "2025-12-09T15:13:37.878Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Khô chế biến sẵn",
+      "count": 14,
+      "timestamp": "2025-12-09T15:15:05.484Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Trái cây sấy",
+      "count": 11,
+      "timestamp": "2025-12-09T15:16:28.687Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Hạt khô",
+      "count": 11,
+      "timestamp": "2025-12-09T15:18:02.778Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Rau câu, thạch dừa",
+      "count": 11,
+      "timestamp": "2025-12-09T15:19:34.177Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Bánh xốp",
+      "count": 13,
+      "timestamp": "2025-12-09T15:21:23.632Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Cơm cháy, bánh tráng",
+      "count": 10,
+      "timestamp": "2025-12-09T15:22:54.553Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Ngũ cốc, yến mạch",
+      "count": 8,
+      "timestamp": "2025-12-09T15:23:50.857Z"
+    },
+    {
+      "main": "Bánh kẹo các loại",
+      "sub": "Socola",
+      "count": 12,
+      "timestamp": "2025-12-09T15:25:15.656Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Dầu gội",
+      "count": 14,
+      "timestamp": "2025-12-09T15:26:56.702Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Sữa tắm",
+      "count": 13,
+      "timestamp": "2025-12-09T15:28:29.562Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Sữa rửa mặt",
+      "count": 12,
+      "timestamp": "2025-12-09T15:30:07.299Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Giấy vệ sinh",
+      "count": 5,
+      "timestamp": "2025-12-09T15:30:58.780Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Kem đánh răng",
+      "count": 14,
+      "timestamp": "2025-12-09T15:32:35.881Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Bàn chải, tăm chỉ nha khoa",
+      "count": 14,
+      "timestamp": "2025-12-09T15:34:12.122Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Nước súc miệng",
+      "count": 10,
+      "timestamp": "2025-12-09T15:35:25.734Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Khăn giấy",
+      "count": 13,
+      "timestamp": "2025-12-09T15:37:02.058Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Khăn ướt",
+      "count": 13,
+      "timestamp": "2025-12-09T15:38:36.961Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Nước rửa tay",
+      "count": 14,
+      "timestamp": "2025-12-09T15:40:18.004Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Xà bông cục",
+      "count": 11,
+      "timestamp": "2025-12-09T15:41:41.783Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Khẩu trang",
+      "count": 5,
+      "timestamp": "2025-12-09T15:42:19.413Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Dầu xả, kem ủ",
+      "count": 12,
+      "timestamp": "2025-12-09T15:43:49.155Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Sữa dưỡng thể",
+      "count": 8,
+      "timestamp": "2025-12-09T15:44:51.335Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Lăn xịt khử mùi",
+      "count": 12,
+      "timestamp": "2025-12-09T15:46:22.047Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Tẩy trang",
+      "count": 10,
+      "timestamp": "2025-12-09T15:47:38.739Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Kem chống nắng",
+      "count": 5,
+      "timestamp": "2025-12-09T15:48:28.215Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Băng vệ sinh",
+      "count": 16,
+      "timestamp": "2025-12-09T15:50:26.909Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Dung dịch vệ sinh",
+      "count": 9,
+      "timestamp": "2025-12-09T15:51:47.535Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Bao cao su",
+      "count": 5,
+      "timestamp": "2025-12-09T15:52:27.113Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Dao cạo, bọt cạo râu",
+      "count": 10,
+      "timestamp": "2025-12-09T15:53:46.114Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Tăm bông",
+      "count": 3,
+      "timestamp": "2025-12-09T15:54:12.673Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Kem tẩy lông",
+      "count": 2,
+      "timestamp": "2025-12-09T15:54:37.646Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Keo vuốt tóc",
+      "count": 10,
+      "timestamp": "2025-12-09T15:55:59.511Z"
+    },
+    {
+      "main": "Chăm sóc cá nhân",
+      "sub": "Thuốc nhuộm tóc",
+      "count": 2,
+      "timestamp": "2025-12-09T15:56:24.852Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Nước giặt",
+      "count": 12,
+      "timestamp": "2025-12-09T15:57:54.195Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Nước xả",
+      "count": 12,
+      "timestamp": "2025-12-09T15:59:29.097Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Bột giặt",
+      "count": 10,
+      "timestamp": "2025-12-09T16:01:44.843Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Nước rửa chén",
+      "count": 13,
+      "timestamp": "2025-12-09T16:03:53.898Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Nước lau sàn",
+      "count": 11,
+      "timestamp": "2025-12-09T16:05:23.378Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Tẩy rửa nhà tắm",
+      "count": 13,
+      "timestamp": "2025-12-09T16:06:58.539Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Bình xịt côn trùng",
+      "count": 10,
+      "timestamp": "2025-12-09T16:08:12.175Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Xịt phòng, sáp thơm",
+      "count": 14,
+      "timestamp": "2025-12-09T16:10:09.647Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Lau kính, lau bếp",
+      "count": 8,
+      "timestamp": "2025-12-09T16:11:11.535Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Nước tẩy",
+      "count": 4,
+      "timestamp": "2025-12-09T16:11:46.382Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Khăn giấy",
+      "count": 13,
+      "timestamp": "2025-12-09T16:13:41.507Z"
+    },
+    {
+      "main": "Vệ sinh nhà cửa",
+      "sub": "Túi đựng rác",
+      "count": 2,
+      "timestamp": "2025-12-09T16:14:00.274Z"
+    },
+    {
+      "main": "Sản phẩm mẹ và bé",
+      "sub": "Tắm gội cho bé",
+      "count": 12,
+      "timestamp": "2025-12-09T16:15:30.612Z"
+    },
+    {
+      "main": "Sản phẩm mẹ và bé",
+      "sub": "Giặt xả cho bé",
+      "count": 5,
+      "timestamp": "2025-12-09T16:16:11.126Z"
+    },
+    {
+      "main": "Sản phẩm mẹ và bé",
+      "sub": "Kem đánh răng bé",
+      "count": 4,
+      "timestamp": "2025-12-09T16:16:42.774Z"
+    },
+    {
+      "main": "Sản phẩm mẹ và bé",
+      "sub": "Bàn chải cho bé",
+      "count": 8,
+      "timestamp": "2025-12-09T16:17:54.164Z"
+    },
+    {
+      "main": "Sản phẩm mẹ và bé",
+      "sub": "Phấn thơm, dưỡng ẩm",
+      "count": 1,
+      "timestamp": "2025-12-09T16:18:14.542Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Túi đựng rác",
+      "count": 2,
+      "timestamp": "2025-12-09T16:18:32.341Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Pin tiểu",
+      "count": 3,
+      "timestamp": "2025-12-09T16:18:58.933Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Màng bọc thực phẩm",
+      "count": 6,
+      "timestamp": "2025-12-09T16:19:41.235Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Đồ dùng một lần",
+      "count": 10,
+      "timestamp": "2025-12-09T16:20:43.078Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Hộp đựng thực phẩm",
+      "count": 4,
+      "timestamp": "2025-12-09T16:21:15.148Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Chảo",
+      "count": 1,
+      "timestamp": "2025-12-09T16:21:28.073Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Dao, kéo",
+      "count": 2,
+      "timestamp": "2025-12-09T16:21:44.319Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Nhấc lót nồi",
+      "count": 3,
+      "timestamp": "2025-12-09T16:22:07.699Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Khăn lau bếp",
+      "count": 3,
+      "timestamp": "2025-12-09T16:22:28.341Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Miếng rửa chén",
+      "count": 8,
+      "timestamp": "2025-12-09T16:23:37.733Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Khăn tắm, bông tắm",
+      "count": 5,
+      "timestamp": "2025-12-09T16:24:13.033Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Bàn chải",
+      "count": 14,
+      "timestamp": "2025-12-09T16:25:42.620Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Bút bi, thước kẻ",
+      "count": 1,
+      "timestamp": "2025-12-09T16:25:53.903Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Băng keo, bao thư",
+      "count": 2,
+      "timestamp": "2025-12-09T16:26:12.438Z"
+    },
+    {
+      "main": "Đồ dùng gia đình",
+      "sub": "Bật lửa",
+      "count": 2,
+      "timestamp": "2025-12-09T16:26:31.907Z"
+    }
+  ],
+  "total_products_crawled": 1516,
+  "errors": [
+    "No products found: Bia, nước giải khát > Nước trà"
+  ]
+}
